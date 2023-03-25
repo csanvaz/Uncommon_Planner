@@ -47,15 +47,15 @@ public class JavaFXTemplate extends Application {
 		// creating a new menu
 		MenuBar homeMenu = menuBarFunction(pStage);
 
-//		//Creating image for the background
-//		Image homeBackGround = new Image( "kenoBackground.jpg");
-//		//BackgroundImage bGround = new BackgroundImage (homeBackGround,
-//				BackgroundRepeat.NO_REPEAT,
-//				BackgroundRepeat.NO_REPEAT,
-//				BackgroundPosition.DEFAULT,
-//				new BackgroundSize(1.0, 1.0, true, true, false, false));
-//		Background hbg = new Background(bGround);
-		//homePane.setBackground(hbg);
+		//Creating image for the background
+		Image homeBackGround = new Image( "kenoBackground.jpg");
+		BackgroundImage bGround = new BackgroundImage (homeBackGround,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(1.0, 1.0, true, true, false, false));
+		Background hbg = new Background(bGround);
+		homePane.setBackground(hbg);
 		homePane.setStyle("-fx-background-color: wheat ;");
 		homePane.setTop(homeMenu);
 
