@@ -48,7 +48,7 @@ public class JavaFXTemplate extends Application {
 		MenuBar homeMenu = menuBarFunction(pStage);
 
 		//Creating image for the background
-		Image homeBackGround = new Image( "kenoBackground.jpg");
+		Image homeBackGround = new Image( "gradient.png");
 		BackgroundImage bGround = new BackgroundImage (homeBackGround,
 				BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT,
