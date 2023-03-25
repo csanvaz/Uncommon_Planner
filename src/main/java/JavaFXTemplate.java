@@ -4,59 +4,57 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.HashMap;
+
 
 public class JavaFXTemplate extends Application {
+	HashMap<String, Scene> sceneMap; //Hashmap that will store different scenes for game
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(args);
 	}
 
-	//feel free to remove the starter code from this method
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		primaryStage.setTitle("Welcome to JavaFX");
-		
-		 Rectangle rect = new Rectangle (100, 40, 100, 100);
-	     rect.setArcHeight(50);
-	     rect.setArcWidth(50);
-	     rect.setFill(Color.VIOLET);
-
-	     RotateTransition rt = new RotateTransition(Duration.millis(5000), rect);
-	     rt.setByAngle(270);
-	     rt.setCycleCount(4);
-	     rt.setAutoReverse(true);
-	     SequentialTransition seqTransition = new SequentialTransition (
-	         new PauseTransition(Duration.millis(500)),
-	         rt
-	     );
-	     seqTransition.play();
-	     
-	     FadeTransition ft = new FadeTransition(Duration.millis(5000), rect);
-	     ft.setFromValue(1.0);
-	     ft.setToValue(0.3);
-	     ft.setCycleCount(4);
-	     ft.setAutoReverse(true);
-
-	     ft.play();
-	     BorderPane root = new BorderPane();
-	     root.setCenter(rect);
-	     
-	     Scene scene = new Scene(root, 700,700);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		
-				
-		
+	public void start(Stage primaryStage) {
+		primaryStage.setTitle("Welcome to Keno!");
+		// create our HashMap of scenes
+		sceneMap = new HashMap<>();
+		//Different scenes created and put in hashmap scenemap
+		// our first scene is the home scene
+		sceneMap.put("home", homeScene(primaryStage));
+		primaryStage.setScene(sceneMap.get("home"));
+		primaryStage.show();
 	}
 
+
+	// this method returns our home screen scene
+	public Scene homeScene(Stage pStage) {
+
+		// borderpane for our initial home screen
+		BorderPane homePane = new BorderPane();
+
+		//Creating image for the background
+		Image homeBackGround = new Image( "kenoBackground.jpg");
+		BackgroundImage bGround = new BackgroundImage (homeBackGround,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.DEFAULT,
+				new BackgroundSize(1.0, 1.0, true, true, false, false));
+		Background hbg = new Background(bGround);
+		homePane.setBackground(hbg);
+
+		return new Scene(homePane, 700, 700);
+	}
 }
