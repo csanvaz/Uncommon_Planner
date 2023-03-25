@@ -7,8 +7,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -45,16 +44,77 @@ public class JavaFXTemplate extends Application {
 		// borderpane for our initial home screen
 		BorderPane homePane = new BorderPane();
 
-		//Creating image for the background
-		Image homeBackGround = new Image( "kenoBackground.jpg");
-		BackgroundImage bGround = new BackgroundImage (homeBackGround,
-				BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT,
-				BackgroundPosition.DEFAULT,
-				new BackgroundSize(1.0, 1.0, true, true, false, false));
-		Background hbg = new Background(bGround);
-		homePane.setBackground(hbg);
+		// creating a new menu
+		MenuBar homeMenu = menuBarFunction(pStage);
+
+//		//Creating image for the background
+//		Image homeBackGround = new Image( "kenoBackground.jpg");
+//		//BackgroundImage bGround = new BackgroundImage (homeBackGround,
+//				BackgroundRepeat.NO_REPEAT,
+//				BackgroundRepeat.NO_REPEAT,
+//				BackgroundPosition.DEFAULT,
+//				new BackgroundSize(1.0, 1.0, true, true, false, false));
+//		Background hbg = new Background(bGround);
+		//homePane.setBackground(hbg);
+		homePane.setStyle("-fx-background-color: wheat ;");
+		homePane.setTop(homeMenu);
+
+
+
 
 		return new Scene(homePane, 700, 700);
+	}
+
+	public Scene about_Us(Stage pStage) {
+		BorderPane aboutUsPane = new BorderPane();
+		return new Scene(aboutUsPane, 700, 700);
+	}
+
+	public Scene daily_Tasks(Stage pStage) {
+		BorderPane aboutUsPane = new BorderPane();
+		return new Scene(aboutUsPane, 700, 700);
+	}
+
+	public Scene dataTracking(Stage pStage) {
+		BorderPane aboutUsPane = new BorderPane();
+		return new Scene(aboutUsPane, 700, 700);
+	}
+
+	public MenuBar menuBarFunction(Stage pStage){
+		// create our menu tab titled "Menu"
+		Menu menu = new Menu("Menu");
+		// create the items we want in the menu tab
+		MenuItem aboutUs = new MenuItem("About Us");
+		MenuItem tasks = new MenuItem("Daily Task");
+		MenuItem tracking = new MenuItem("Progress Tracking");
+		MenuItem exit = new MenuItem ("Exit");
+		// add the items into the menu tab
+		menu.getItems().add(aboutUs);
+		menu.getItems().add(tasks);
+		menu.getItems().add(tracking);
+		menu.getItems().add(exit);
+		// create the menu bar
+		MenuBar mb = new MenuBar();
+		// then add the menu with the menu items, into the menu bar
+		mb.getMenus().add(menu);
+		// event handler when clicking on rules: Leads to new scene display
+		aboutUs.setOnAction(e -> {
+			sceneMap.put("aboutUs", about_Us(pStage));
+			pStage.setScene(sceneMap.get("aboutUs"));
+		});
+		// event handler when clicking on odds: Leads to new scene display
+		tasks.setOnAction(e -> {
+			sceneMap.put("dailyTasks", daily_Tasks(pStage));
+			pStage.setScene(sceneMap.get("dailyTasks"));
+		});
+		// newGui will change the theme of the game
+		tracking.setOnAction(e -> {
+				sceneMap.put("pTracking", dataTracking(pStage));
+				pStage.setScene(sceneMap.get("pTracking"));
+
+		});
+		// event handler for exit button
+		exit.setOnAction(e -> System.exit(0));
+		return mb;
 	}
 }
