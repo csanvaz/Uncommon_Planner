@@ -4,6 +4,7 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,11 +16,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class JavaFXTemplate extends Application {
 	HashMap<String, Scene> sceneMap; //Hashmap that will store different scenes for game
+	private ListView<String> listView; //Holding Tasks of Users
+	private ArrayList<Double> ratingsList = new ArrayList<>(); //Used to store emotion rating data
+
+	private TextField taskInput;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -27,7 +33,7 @@ public class JavaFXTemplate extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Welcome to Keno!");
+		primaryStage.setTitle("Welcome!");
 		// create our HashMap of scenes
 		sceneMap = new HashMap<>();
 		//Different scenes created and put in hashmap scenemap
@@ -56,7 +62,6 @@ public class JavaFXTemplate extends Application {
 				new BackgroundSize(1.0, 1.0, true, true, false, false));
 		Background hbg = new Background(bGround);
 		homePane.setBackground(hbg);
-		homePane.setStyle("-fx-background-color: wheat ;");
 		homePane.setTop(homeMenu);
 
 
@@ -71,8 +76,72 @@ public class JavaFXTemplate extends Application {
 	}
 
 	public Scene daily_Tasks(Stage pStage) {
-		BorderPane aboutUsPane = new BorderPane();
-		return new Scene(aboutUsPane, 700, 700);
+		BorderPane root = new BorderPane();
+
+		FlowPane flowPane = new FlowPane();
+		flowPane.setPadding(new Insets(10, 10, 10, 10));
+		flowPane.setHgap(10);
+		flowPane.setVgap(10);
+		flowPane.setAlignment(Pos.TOP_CENTER);
+
+		for (int i = 1; i <= 7; i++) {
+			Button button = new Button(String.valueOf(i));
+			flowPane.getChildren().add(button);
+		}
+
+
+//		if (ratingsList.get(0) <= 5) {
+//			// Create task input field
+//			taskInput = new TextField();
+//			taskInput.setPromptText("Enter task here");
+//
+//			// Create add task button
+//			Button addButton = new Button("Add");
+//			addButton.setOnAction(event -> {
+//				String task = taskInput.getText();
+//				if (!task.isEmpty()) {
+//					listView.getItems().add(task);
+//					taskInput.clear();
+//				}
+//			});
+//
+//			// Create delete task button
+//			Button deleteButton = new Button("Delete");
+//			deleteButton.setOnAction(event -> {
+//				int index = listView.getSelectionModel().getSelectedIndex();
+//				if (index >= 0) {
+//					listView.getItems().remove(index);
+//				}
+//			});
+//
+//			// Create list view
+//			listView = new ListView<>();
+//			listView.setItems(FXCollections.observableArrayList());
+//
+//			// Create horizontal box for input and add button
+//			HBox inputBox = new HBox();
+//			inputBox.setAlignment(Pos.CENTER);
+//			inputBox.setSpacing(10);
+//			inputBox.getChildren().addAll(taskInput, addButton);
+//
+//			// Create vertical box for delete button and list view
+//			VBox listBox = new VBox();
+//			listBox.setAlignment(Pos.CENTER);
+//			listBox.setSpacing(10);
+//			listBox.getChildren().addAll(deleteButton, listView);
+//
+//			// Add input box and list box to root pane
+//			root.setTop(inputBox);
+//			root.setCenter(listBox);
+//
+//			// Set padding for root pane
+//			root.setPadding(new Insets(10));
+//			root.setTop(gridPane);
+//		}
+			root.setTop(flowPane);
+			return new Scene(root, 700, 700);
+
+
 	}
 
 	public Scene dataTracking(Stage pStage) {
