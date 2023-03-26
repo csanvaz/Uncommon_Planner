@@ -74,7 +74,7 @@ public class JavaFXTemplate extends Application {
 		homePane.setCenter(quote);
 		homePane.setPadding(new Insets(0, 0, 50, 0));
 
-		Text direct = new Text("All the info (other pages) you need can \nbe found in the menu bar!");
+		Text direct = new Text("Joyful Agenda\nAll the info (other pages) you need can \nbe found in the menu bar!");
 		direct.setStyle("-fx-font-size: 20px;" + "-fx-fill: #002154;");
 		direct.setTextAlignment(TextAlignment.CENTER);
 		BorderPane.setAlignment(direct, Pos.CENTER);
@@ -165,7 +165,7 @@ public class JavaFXTemplate extends Application {
 
 
 
-		if (ratingHolder <= 3 & ratingHolder > -1) {
+		if (ratingHolder <= 3 && ratingHolder > -1) {
 			// Create task input field
 			taskInput = new TextField();
 			taskInput.setVisible(false);
