@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class JavaFXTemplate extends Application {
 	HashMap<String, Scene> sceneMap; //Hashmap that will store different scenes for game
 	private ListView<String> listView; //Holding Tasks of Users
-	private ArrayList<Double> ratingsList = new ArrayList<>(); //Used to store emotion rating data
+	private Integer ratingHolder = -1; //Used to store emotion rating data
 
 	private TextField taskInput;
 
@@ -35,7 +35,7 @@ public class JavaFXTemplate extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Welcome!");
+		primaryStage.setTitle("Joyful Planner");
 		// create our HashMap of scenes
 		sceneMap = new HashMap<>();
 		//Different scenes created and put in hashmap scenemap
@@ -90,67 +90,96 @@ public class JavaFXTemplate extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: lightblue;");
 
+
+		String dailyTaskIntro = "    Rate Your Distress Level On The Scale Below\n" + "0 Means No Distress and 7 Mean Extreme Distress";
+
+		Label prompt = new Label(dailyTaskIntro);
+		prompt.setStyle("-fx-font-family:'Robotom Medium'; " + "-fx-font-size: 1.4em;" + "-fx-fill:-text-color-900;");
+
 		FlowPane flowPane = new FlowPane();
 		flowPane.setPadding(new Insets(10, 10, 10, 10));
 		flowPane.setHgap(10);
 		flowPane.setVgap(10);
 		flowPane.setAlignment(Pos.TOP_CENTER);
 
+
 		for (int i = 1; i <= 7; i++) {
 			Button button = new Button(String.valueOf(i));
+			button.setStyle("-fx-background-color: white;");
 			flowPane.getChildren().add(button);
+			button.setDisable(false);
+			button.setOnAction(e -> {
+				button.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: navy;" + "-fx-text-fill: white;" + "-fx-font-weight: bold;");
+				flowPane.setDisable(true);
+				ratingHolder = Integer.parseInt(button.getText());
+			});
+
 		}
 
+		Button clear = new Button("Clear");
+		clear.setStyle("-fx-background-color: white;");
+		clear.setOnAction(e ->
+		{
+			ratingHolder = -1;
+			sceneMap.put("dailyTasks", daily_Tasks(pStage));
+			pStage.setScene(sceneMap.get("dailyTasks"));
+		});
 
-//		if (ratingsList.get(0) <= 5) {
-//			// Create task input field
-//			taskInput = new TextField();
-//			taskInput.setPromptText("Enter task here");
-//
-//			// Create add task button
-//			Button addButton = new Button("Add");
-//			addButton.setOnAction(event -> {
-//				String task = taskInput.getText();
-//				if (!task.isEmpty()) {
-//					listView.getItems().add(task);
-//					taskInput.clear();
-//				}
-//			});
-//
-//			// Create delete task button
-//			Button deleteButton = new Button("Delete");
-//			deleteButton.setOnAction(event -> {
-//				int index = listView.getSelectionModel().getSelectedIndex();
-//				if (index >= 0) {
-//					listView.getItems().remove(index);
-//				}
-//			});
-//
-//			// Create list view
-//			listView = new ListView<>();
-//			listView.setItems(FXCollections.observableArrayList());
-//
-//			// Create horizontal box for input and add button
-//			HBox inputBox = new HBox();
-//			inputBox.setAlignment(Pos.CENTER);
-//			inputBox.setSpacing(10);
-//			inputBox.getChildren().addAll(taskInput, addButton);
-//
-//			// Create vertical box for delete button and list view
-//			VBox listBox = new VBox();
-//			listBox.setAlignment(Pos.CENTER);
-//			listBox.setSpacing(10);
-//			listBox.getChildren().addAll(deleteButton, listView);
-//
-//			// Add input box and list box to root pane
-//			root.setTop(inputBox);
-//			root.setCenter(listBox);
-//
-//			// Set padding for root pane
-//			root.setPadding(new Insets(10));
-//			root.setTop(gridPane);
-//		}
-			root.setTop(flowPane);
+
+
+		if (ratingHolder <= 3 & ratingHolder > -1) {
+			// Create task input field
+			taskInput = new TextField();
+			taskInput.setVisible(false);
+			taskInput.setPromptText("Enter task here");
+
+			// Create add task button
+			Button addButton = new Button("Add");
+			addButton.setOnAction(event -> {
+				String task = taskInput.getText();
+				if (!task.isEmpty()) {
+					listView.getItems().add(task);
+					taskInput.clear();
+				}
+			});
+
+			// Create delete task button
+			Button deleteButton = new Button("Delete");
+			deleteButton.setOnAction(event -> {
+				int index = listView.getSelectionModel().getSelectedIndex();
+				if (index >= 0) {
+					listView.getItems().remove(index);
+				}
+			});
+
+			// Create list view
+			listView = new ListView<>();
+			listView.setItems(FXCollections.observableArrayList());
+
+			// Create horizontal box for input and add button
+			HBox inputBox = new HBox();
+			inputBox.setAlignment(Pos.CENTER);
+			inputBox.setSpacing(10);
+			inputBox.getChildren().addAll(taskInput, addButton);
+
+			// Create vertical box for delete button and list view
+			VBox listBox = new VBox();
+			listBox.setAlignment(Pos.CENTER);
+			listBox.setSpacing(10);
+			listBox.getChildren().addAll(deleteButton, listView);
+
+			// Add input box and list box to root pane
+			root.setCenter(inputBox);
+			root.setBottom(listBox);
+
+			// Set padding for root pane
+			root.setPadding(new Insets(10));
+		}
+
+			VBox taskBox = new VBox();
+			taskBox.getChildren().addAll(prompt, flowPane, clear);
+			taskBox.setAlignment(Pos.TOP_CENTER);
+			root.setTop(taskBox);
 			return new Scene(root, 700, 700);
 
 
