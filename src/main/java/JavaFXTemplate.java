@@ -67,7 +67,7 @@ public class JavaFXTemplate extends Application {
 		homePane.setBackground(hbg);
 		homePane.setTop(homeMenu);
 
-		Text quote = new Text("\"Nothing diminishes anxiety \nfaster than action.\"");
+		Text quote = new Text("Joyful Agenda\n\n\"Nothing diminishes anxiety \nfaster than action.\"");
 		quote.setStyle("-fx-font-size: 40px;" + "-fx-fill: #002154;");
 		quote.setTextAlignment(TextAlignment.CENTER);
 		BorderPane.setAlignment(quote, Pos.CENTER);
