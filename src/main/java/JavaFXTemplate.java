@@ -128,6 +128,8 @@ public class JavaFXTemplate extends Application {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: lightblue;");
 
+		MenuBar taskBar = menuBarFunction(pStage);
+
 
 		String dailyTaskIntro = "    Rate Your Distress Level On The Scale Below\n" + "0 Means No Distress and 7 Mean Extreme Distress";
 
@@ -149,6 +151,7 @@ public class JavaFXTemplate extends Application {
 			button.setOnAction(e -> {
 				button.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: navy;" + "-fx-text-fill: white;" + "-fx-font-weight: bold;");
 				flowPane.setDisable(true);
+				counter = 0;
 				ratingHolder = Integer.parseInt(button.getText());
 				taskListCheck(ratingHolder, root, pStage);
 				System.out.println(ratingHolder + "This is happening when button is cliecked");
@@ -170,7 +173,7 @@ public class JavaFXTemplate extends Application {
 
 
 		VBox taskBox = new VBox();
-		taskBox.getChildren().addAll(prompt, flowPane, clear);
+		taskBox.getChildren().addAll(taskBar, prompt, flowPane, clear);
 		taskBox.setAlignment(Pos.TOP_CENTER);
 		root.setTop(taskBox);
 		return new Scene(root, 700, 700);
