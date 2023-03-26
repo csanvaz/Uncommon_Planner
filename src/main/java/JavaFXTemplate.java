@@ -86,13 +86,16 @@ public class JavaFXTemplate extends Application {
 
 	public Scene about_Us(Stage pStage) {
 		BorderPane aboutUsPane = new BorderPane();
+		MenuBar homeMenu = menuBarFunction(pStage);
+		aboutUsPane.setTop(homeMenu);
+
 		aboutUsPane.setStyle("-fx-background-color: lightblue;");
 		String title_style = "-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-decoration: underline";
 		String subtitle_style = "-fx-font-weight: bold; -fx-font-size: 22px";
 		String body_style = "-fx-font-size: 14px;";
 
 		Text about_proj = new Text("\nJoyful Agenda was made for Uncommon Hacks 2023. The goal was to combine a daily planner" +
-										" that promotes mental wellbeing and work-life balance.\n");
+				" that promotes mental wellbeing and work-life balance.\n");
 		about_proj.setStyle(body_style);
 
 		Text cynthia_title = new Text("\nCynthia Sanchez Vasquez:\n");
@@ -115,11 +118,13 @@ public class JavaFXTemplate extends Application {
 		Text title = new Text("About us");
 		title.setStyle(title_style);
 		TextFlow textFlow = new TextFlow(title, about_proj, cynthia_title, cynthia_bio, sam_title, sam_bio);
+		textFlow.maxWidth(550);
+		textFlow.setPadding(new Insets(10,20,10,20));
 
 		VBox paneCenter = new VBox (10, title, textFlow);
 		paneCenter.setAlignment(Pos.CENTER);
 		aboutUsPane.setCenter(paneCenter);
-		aboutUsPane.setPadding(new Insets(10, 20, 20, 30));
+		aboutUsPane.setPadding(new Insets(0, 0, 30, 0));
 
 		return new Scene(aboutUsPane, 700, 700);
 	}
@@ -129,7 +134,6 @@ public class JavaFXTemplate extends Application {
 		root.setStyle("-fx-background-color: lightblue;");
 
 		MenuBar taskBar = menuBarFunction(pStage);
-
 
 		String dailyTaskIntro = "    Rate Your Distress Level On The Scale Below\n" + "0 Means No Distress and 7 Mean Extreme Distress";
 
@@ -154,7 +158,6 @@ public class JavaFXTemplate extends Application {
 				counter = 0;
 				ratingHolder = Integer.parseInt(button.getText());
 				taskListCheck(ratingHolder, root, pStage);
-				System.out.println(ratingHolder + "This is happening when button is cliecked");
 			});
 
 		}
@@ -167,9 +170,6 @@ public class JavaFXTemplate extends Application {
 			sceneMap.put("dailyTasks", daily_Tasks(pStage));
 			pStage.setScene(sceneMap.get("dailyTasks"));
 		});
-
-
-		System.out.println(ratingHolder + "This is happening outside of button click");
 
 
 		VBox taskBox = new VBox();
@@ -200,7 +200,7 @@ public class JavaFXTemplate extends Application {
 			});
 
 			// Create delete task button
-			Button deleteButton = new Button("Delete");
+			Button deleteButton = new Button("Finish Task");
 			deleteButton.setOnAction(event -> {
 				int index = listView.getSelectionModel().getSelectedIndex();
 				if (index >= 0) {
@@ -280,7 +280,19 @@ public class JavaFXTemplate extends Application {
 
 	public Scene dataTracking(Stage pStage) {
 		BorderPane dataTrackPane = new BorderPane();
+		MenuBar homeMenu = menuBarFunction(pStage);
+		dataTrackPane.setTop(homeMenu);
+		Label body = new Label("The data tracking feature is not yet implemented, but the concept is that" +
+				" Joyful Agenda will track users' initial stress levels and their number of completed tasks each" +
+				" day and be able to display that data in time series visualizations after they've been using the " +
+				" agenda for long enough.");
+		body.setStyle("-fx-font-size: 16px");
+		body.setWrapText(true);
+		body.setMaxWidth(400);
+		body.setTextAlignment(TextAlignment.CENTER);
+
 		dataTrackPane.setStyle("-fx-background-color: lightblue;");
+		dataTrackPane.setCenter(body);
 		return new Scene(dataTrackPane, 700, 700);
 	}
 
@@ -313,8 +325,8 @@ public class JavaFXTemplate extends Application {
 		});
 		// newGui will change the theme of the game
 		tracking.setOnAction(e -> {
-				sceneMap.put("pTracking", dataTracking(pStage));
-				pStage.setScene(sceneMap.get("pTracking"));
+			sceneMap.put("pTracking", dataTracking(pStage));
+			pStage.setScene(sceneMap.get("pTracking"));
 
 		});
 		// event handler for exit button
