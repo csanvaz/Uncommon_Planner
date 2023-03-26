@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -64,17 +65,20 @@ public class JavaFXTemplate extends Application {
 				new BackgroundSize(1.0, 1.0, true, true, false, false));
 		Background hbg = new Background(bGround);
 		homePane.setBackground(hbg);
-		//homePane.setStyle("-fx-background-color: wheat ;");
 		homePane.setTop(homeMenu);
-		Text quote = new Text(10, 20, "\"Nothing diminishes anxiety \nfaster than action.\"");
+
+		Text quote = new Text("\"Nothing diminishes anxiety \nfaster than action.\"");
 		quote.setStyle("-fx-font-size: 40px;" + "-fx-fill: #002154;");
 		quote.setTextAlignment(TextAlignment.CENTER);
+		BorderPane.setAlignment(quote, Pos.CENTER);
 		homePane.setCenter(quote);
+		homePane.setPadding(new Insets(0, 0, 50, 0));
 
-		//Text direct = new Text(10, 60, "All the info you need can \nbe found in the menu bar!");
-		//direct.setStyle("-fx-font-size: 20px;" + "-fx-fill: #002154;");
-		//direct.setTextAlignment(TextAlignment.CENTER);
-		//homePane.setCenter(direct);
+		Text direct = new Text("All the info (other pages) you need can \nbe found in the menu bar!");
+		direct.setStyle("-fx-font-size: 20px;" + "-fx-fill: #002154;");
+		direct.setTextAlignment(TextAlignment.CENTER);
+		BorderPane.setAlignment(direct, Pos.CENTER);
+		homePane.setBottom(direct);
 
 
 		return new Scene(homePane, 700, 700);
@@ -83,6 +87,40 @@ public class JavaFXTemplate extends Application {
 	public Scene about_Us(Stage pStage) {
 		BorderPane aboutUsPane = new BorderPane();
 		aboutUsPane.setStyle("-fx-background-color: lightblue;");
+		String title_style = "-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-decoration: underline";
+		String subtitle_style = "-fx-font-weight: bold; -fx-font-size: 22px";
+		String body_style = "-fx-font-size: 14px;";
+
+		Text about_proj = new Text("\nJoyful Agenda was made for Uncommon Hacks 2023. The goal was to combine a daily planner" +
+										" that promotes mental wellbeing and work-life balance.\n");
+		about_proj.setStyle(body_style);
+
+		Text cynthia_title = new Text("\nCynthia Sanchez Vasquez:\n");
+		Text sam_title = new Text("\nSam Doepker:\n");
+
+		cynthia_title.setStyle(subtitle_style);
+		sam_title.setStyle(subtitle_style);
+
+		Text cynthia_bio = new Text("As a mental health therapist I have seen first hand the struggles that can come" +
+				"with creating a to-do list. I hope that by adding a few extra features to a planner, the process can be" +
+				" more joyful and lead to goal achievement.");
+		cynthia_bio.setStyle(body_style);
+
+		Text sam_bio = new Text("One of my passions has always been the power of computer science and technology to" +
+				"improve peoples' lives, and Joyful Agenda's core goal is to do just that. My hope is that the agenda" +
+				"makes it easier to take mental health breaks and take some pressure of planning the day.");
+		sam_bio.setStyle(body_style);
+
+
+		Text title = new Text("About us");
+		title.setStyle(title_style);
+		TextFlow textFlow = new TextFlow(title, about_proj, cynthia_title, cynthia_bio, sam_title, sam_bio);
+
+		VBox paneCenter = new VBox (10, title, textFlow);
+		paneCenter.setAlignment(Pos.CENTER);
+		aboutUsPane.setCenter(paneCenter);
+		aboutUsPane.setPadding(new Insets(10, 20, 20, 30));
+
 		return new Scene(aboutUsPane, 700, 700);
 	}
 
