@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -27,7 +29,7 @@ public class JavaFXTemplate extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Welcome to Keno!");
+		primaryStage.setTitle("Welcome to {site name here}!");
 		// create our HashMap of scenes
 		sceneMap = new HashMap<>();
 		//Different scenes created and put in hashmap scenemap
@@ -56,10 +58,17 @@ public class JavaFXTemplate extends Application {
 				new BackgroundSize(1.0, 1.0, true, true, false, false));
 		Background hbg = new Background(bGround);
 		homePane.setBackground(hbg);
-		homePane.setStyle("-fx-background-color: wheat ;");
+		//homePane.setStyle("-fx-background-color: wheat ;");
 		homePane.setTop(homeMenu);
+		Text quote = new Text(10, 20, "\"Nothing diminishes anxiety \nfaster than action.\"");
+		quote.setStyle("-fx-font-size: 40px;" + "-fx-fill: #002154;");
+		quote.setTextAlignment(TextAlignment.CENTER);
+		homePane.setCenter(quote);
 
-
+		//Text direct = new Text(10, 60, "All the info you need can \nbe found in the menu bar!");
+		//direct.setStyle("-fx-font-size: 20px;" + "-fx-fill: #002154;");
+		//direct.setTextAlignment(TextAlignment.CENTER);
+		//homePane.setCenter(direct);
 
 
 		return new Scene(homePane, 700, 700);
@@ -67,17 +76,20 @@ public class JavaFXTemplate extends Application {
 
 	public Scene about_Us(Stage pStage) {
 		BorderPane aboutUsPane = new BorderPane();
+		aboutUsPane.setStyle("-fx-background-color: lightblue;");
 		return new Scene(aboutUsPane, 700, 700);
 	}
 
 	public Scene daily_Tasks(Stage pStage) {
-		BorderPane aboutUsPane = new BorderPane();
-		return new Scene(aboutUsPane, 700, 700);
+		BorderPane dailyTasks = new BorderPane();
+		dailyTasks.setStyle("-fx-background-color: lightblue;");
+		return new Scene(dailyTasks, 700, 700);
 	}
 
 	public Scene dataTracking(Stage pStage) {
-		BorderPane aboutUsPane = new BorderPane();
-		return new Scene(aboutUsPane, 700, 700);
+		BorderPane dataTrackPane = new BorderPane();
+		dataTrackPane.setStyle("-fx-background-color: lightblue;");
+		return new Scene(dataTrackPane, 700, 700);
 	}
 
 	public MenuBar menuBarFunction(Stage pStage){
