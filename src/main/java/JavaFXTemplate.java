@@ -86,6 +86,9 @@ public class JavaFXTemplate extends Application {
 
 	public Scene about_Us(Stage pStage) {
 		BorderPane aboutUsPane = new BorderPane();
+		MenuBar homeMenu = menuBarFunction(pStage);
+		aboutUsPane.setTop(homeMenu);
+
 		aboutUsPane.setStyle("-fx-background-color: lightblue;");
 		String title_style = "-fx-font-weight: bold; -fx-font-size: 36px; -fx-text-decoration: underline";
 		String subtitle_style = "-fx-font-weight: bold; -fx-font-size: 22px";
@@ -119,7 +122,7 @@ public class JavaFXTemplate extends Application {
 		VBox paneCenter = new VBox (10, title, textFlow);
 		paneCenter.setAlignment(Pos.CENTER);
 		aboutUsPane.setCenter(paneCenter);
-		aboutUsPane.setPadding(new Insets(10, 20, 20, 30));
+		aboutUsPane.setPadding(new Insets(0, 0, 30, 0));
 
 		return new Scene(aboutUsPane, 700, 700);
 	}
@@ -127,6 +130,8 @@ public class JavaFXTemplate extends Application {
 	public Scene daily_Tasks(Stage pStage) {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: lightblue;");
+		MenuBar homeMenu = menuBarFunction(pStage);
+		root.setTop(homeMenu);
 
 
 		String dailyTaskIntro = "    Rate Your Distress Level On The Scale Below\n" + "0 Means No Distress and 7 Mean Extreme Distress";
@@ -172,7 +177,7 @@ public class JavaFXTemplate extends Application {
 		VBox taskBox = new VBox();
 		taskBox.getChildren().addAll(prompt, flowPane, clear);
 		taskBox.setAlignment(Pos.TOP_CENTER);
-		root.setTop(taskBox);
+		root.setCenter(taskBox);
 		return new Scene(root, 700, 700);
 
 
@@ -277,6 +282,9 @@ public class JavaFXTemplate extends Application {
 
 	public Scene dataTracking(Stage pStage) {
 		BorderPane dataTrackPane = new BorderPane();
+		MenuBar homeMenu = menuBarFunction(pStage);
+		dataTrackPane.setTop(homeMenu);
+
 		dataTrackPane.setStyle("-fx-background-color: lightblue;");
 		return new Scene(dataTrackPane, 700, 700);
 	}
