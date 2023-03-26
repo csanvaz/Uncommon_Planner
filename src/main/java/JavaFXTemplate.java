@@ -1,10 +1,9 @@
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.*;
 import javafx.application.Application;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,7 +25,8 @@ import java.util.HashMap;
 public class JavaFXTemplate extends Application {
 	HashMap<String, Scene> sceneMap; //Hashmap that will store different scenes for game
 	private ListView<String> listView; //Holding Tasks of Users
-	private Integer ratingHolder = -1; //Used to store emotion rating data
+	int ratingHolder = -1; // Int used to store emotion rating data
+	int counter = 0; // Int used to set off a timer for a breathing exercise
 
 	private TextField taskInput;
 
@@ -54,7 +54,7 @@ public class JavaFXTemplate extends Application {
 		BorderPane homePane = new BorderPane();
 
 		// creating a new menu
-		MenuBar homeMenu = menuBarFunction(pStage);
+		MenuBar homeMenu = menuBarFunction (pStage);
 
 		//Creating image for the background
 		Image homeBackGround = new Image( "gradient.png");
@@ -150,6 +150,8 @@ public class JavaFXTemplate extends Application {
 				button.setStyle("-fx-background-radius: 5em;" + "-fx-background-color: navy;" + "-fx-text-fill: white;" + "-fx-font-weight: bold;");
 				flowPane.setDisable(true);
 				ratingHolder = Integer.parseInt(button.getText());
+				taskListCheck(ratingHolder, root, pStage);
+				System.out.println(ratingHolder + "This is happening when button is cliecked");
 			});
 
 		}
@@ -164,11 +166,25 @@ public class JavaFXTemplate extends Application {
 		});
 
 
+		System.out.println(ratingHolder + "This is happening outside of button click");
 
 		if (ratingHolder <= 3 && ratingHolder > -1) {
+
+		VBox taskBox = new VBox();
+		taskBox.getChildren().addAll(prompt, flowPane, clear);
+		taskBox.setAlignment(Pos.TOP_CENTER);
+		root.setTop(taskBox);
+		return new Scene(root, 700, 700);
+
+
+	}
+
+	public void taskListCheck(int check, BorderPane taskPane, Stage pStage){
+
+		if (ratingHolder <= 3 && ratingHolder != -1) {
+			System.out.println(ratingHolder + "inside if statement");
 			// Create task input field
 			taskInput = new TextField();
-			taskInput.setVisible(false);
 			taskInput.setPromptText("Enter task here");
 
 			// Create add task button
@@ -207,20 +223,57 @@ public class JavaFXTemplate extends Application {
 			listBox.getChildren().addAll(deleteButton, listView);
 
 			// Add input box and list box to root pane
-			root.setCenter(inputBox);
-			root.setBottom(listBox);
+			taskPane.setCenter(inputBox);
+			taskPane.setBottom(listBox);
 
 			// Set padding for root pane
-			root.setPadding(new Insets(10));
+			taskPane.setPadding(new Insets(10));
 		}
 
-			VBox taskBox = new VBox();
-			taskBox.getChildren().addAll(prompt, flowPane, clear);
-			taskBox.setAlignment(Pos.TOP_CENTER);
-			root.setTop(taskBox);
-			return new Scene(root, 700, 700);
+		if(ratingHolder > 3) {
+			breathingTimer(check, taskPane, pStage);
+		}
 
 
+
+	}
+
+	public void breathingTimer(int check, BorderPane timerPane, Stage pStage){
+		System.out.println(ratingHolder + "inside buttonpressed function");
+		Label label = new Label("Breathe In: " + counter);
+		label.setStyle("-fx-text-fill: white;" + "-fx-font-weight: bold;" +  "-fx-font-size: 30;");
+
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				counter++;
+				label.setText("Breathe In: " + counter);
+				if (counter >= 5){
+					label.setText("Hold Breath: " + counter);
+				}
+
+				if (counter >= 12){
+					label.setText("Breath Out: " + counter);
+				}
+
+				if (counter == 20){
+					ratingHolder = -1;
+					counter = 0;
+					sceneMap.put("dailyTasks", daily_Tasks(pStage));
+					pStage.setScene(sceneMap.get("dailyTasks"));
+				}
+			}
+		}));
+		timeline.setCycleCount(20);
+		timeline.play();
+
+		VBox listBox = new VBox();
+		listBox.setAlignment(Pos.CENTER);
+		listBox.setSpacing(10);
+		listBox.getChildren().addAll(label);
+
+
+		timerPane.setCenter(listBox);
 	}
 
 	public Scene dataTracking(Stage pStage) {
