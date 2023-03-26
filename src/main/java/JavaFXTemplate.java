@@ -54,7 +54,7 @@ public class JavaFXTemplate extends Application {
 		BorderPane homePane = new BorderPane();
 
 		// creating a new menu
-		MenuBar homeMenu = menuBarFunction (pStage);
+		MenuBar homeMenu = menuBarFunction(pStage);
 
 		//Creating image for the background
 		Image homeBackGround = new Image( "gradient.png");
@@ -74,7 +74,7 @@ public class JavaFXTemplate extends Application {
 		homePane.setCenter(quote);
 		homePane.setPadding(new Insets(0, 0, 50, 0));
 
-		Text direct = new Text("Joyful Agenda\nAll the info (other pages) you need can \nbe found in the menu bar!");
+		Text direct = new Text("All the info (other pages) you need can \nbe found in the menu bar!");
 		direct.setStyle("-fx-font-size: 20px;" + "-fx-fill: #002154;");
 		direct.setTextAlignment(TextAlignment.CENTER);
 		BorderPane.setAlignment(direct, Pos.CENTER);
@@ -92,7 +92,7 @@ public class JavaFXTemplate extends Application {
 		String body_style = "-fx-font-size: 14px;";
 
 		Text about_proj = new Text("\nJoyful Agenda was made for Uncommon Hacks 2023. The goal was to combine a daily planner" +
-										" that promotes mental wellbeing and work-life balance.\n");
+				" that promotes mental wellbeing and work-life balance.\n");
 		about_proj.setStyle(body_style);
 
 		Text cynthia_title = new Text("\nCynthia Sanchez Vasquez:\n");
@@ -168,7 +168,6 @@ public class JavaFXTemplate extends Application {
 
 		System.out.println(ratingHolder + "This is happening outside of button click");
 
-		if (ratingHolder <= 3 && ratingHolder > -1) {
 
 		VBox taskBox = new VBox();
 		taskBox.getChildren().addAll(prompt, flowPane, clear);
@@ -198,7 +197,7 @@ public class JavaFXTemplate extends Application {
 			});
 
 			// Create delete task button
-			Button deleteButton = new Button("Delete");
+			Button deleteButton = new Button("Finish Task");
 			deleteButton.setOnAction(event -> {
 				int index = listView.getSelectionModel().getSelectedIndex();
 				if (index >= 0) {
@@ -311,8 +310,8 @@ public class JavaFXTemplate extends Application {
 		});
 		// newGui will change the theme of the game
 		tracking.setOnAction(e -> {
-				sceneMap.put("pTracking", dataTracking(pStage));
-				pStage.setScene(sceneMap.get("pTracking"));
+			sceneMap.put("pTracking", dataTracking(pStage));
+			pStage.setScene(sceneMap.get("pTracking"));
 
 		});
 		// event handler for exit button
