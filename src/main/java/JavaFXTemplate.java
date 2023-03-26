@@ -118,6 +118,8 @@ public class JavaFXTemplate extends Application {
 		Text title = new Text("About us");
 		title.setStyle(title_style);
 		TextFlow textFlow = new TextFlow(title, about_proj, cynthia_title, cynthia_bio, sam_title, sam_bio);
+		textFlow.maxWidth(550);
+		textFlow.setPadding(new Insets(10,20,10,20));
 
 		VBox paneCenter = new VBox (10, title, textFlow);
 		paneCenter.setAlignment(Pos.CENTER);
@@ -130,9 +132,7 @@ public class JavaFXTemplate extends Application {
 	public Scene daily_Tasks(Stage pStage) {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: lightblue;");
-		MenuBar homeMenu = menuBarFunction(pStage);
-		root.setTop(homeMenu);
-
+		MenuBar taskBar = menuBarFunction(pStage);
 
 		String dailyTaskIntro = "    Rate Your Distress Level On The Scale Below\n" + "0 Means No Distress and 7 Mean Extreme Distress";
 
@@ -156,7 +156,6 @@ public class JavaFXTemplate extends Application {
 				flowPane.setDisable(true);
 				ratingHolder = Integer.parseInt(button.getText());
 				taskListCheck(ratingHolder, root, pStage);
-				System.out.println(ratingHolder + "This is happening when button is cliecked");
 			});
 
 		}
@@ -171,13 +170,10 @@ public class JavaFXTemplate extends Application {
 		});
 
 
-		System.out.println(ratingHolder + "This is happening outside of button click");
-
-
 		VBox taskBox = new VBox();
-		taskBox.getChildren().addAll(prompt, flowPane, clear);
+		taskBox.getChildren().addAll(taskBar, prompt, flowPane, clear);
 		taskBox.setAlignment(Pos.TOP_CENTER);
-		root.setCenter(taskBox);
+		root.setTop(taskBox);
 		return new Scene(root, 700, 700);
 
 
@@ -284,8 +280,17 @@ public class JavaFXTemplate extends Application {
 		BorderPane dataTrackPane = new BorderPane();
 		MenuBar homeMenu = menuBarFunction(pStage);
 		dataTrackPane.setTop(homeMenu);
+		Label body = new Label("The data tracking feature is not yet implemented, but the concept is that" +
+				" Joyful Agenda will track users' initial stress levels and their number of completed tasks each" +
+				" day and be able to display that data in time series visualizations after they've been using the " +
+				" agenda for long enough.");
+		body.setStyle("-fx-font-size: 16px");
+		body.setWrapText(true);
+		body.setMaxWidth(400);
+		body.setTextAlignment(TextAlignment.CENTER);
 
 		dataTrackPane.setStyle("-fx-background-color: lightblue;");
+		dataTrackPane.setCenter(body);
 		return new Scene(dataTrackPane, 700, 700);
 	}
 
